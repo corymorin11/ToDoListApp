@@ -3,13 +3,13 @@ import "firebase/auth";
 import "firebase/firestore";
 
 const config = {
-  apiKey: "AIzaSyBHwzMghAABRAuKr5oQ6qoJdLYqQvP-uo0",
-  authDomain: "authentication2-24237.firebaseapp.com",
-  databaseURL: "https://authentication2-24237.firebaseio.com",
-  projectId: "authentication2-24237",
-  storageBucket: "",
-  messagingSenderId: "813975680001",
-  appId: "1:813975680001:web:c60653a804bd6d272a7c00"
+  apiKey: "AIzaSyCgeNBHWNWgpY-SJYyS8yKV3iYMDK3PcUE",
+  authDomain: "todo-cf426.firebaseapp.com",
+  databaseURL: "https://todo-cf426.firebaseio.com",
+  projectId: "todo-cf426",
+  storageBucket: "todo-cf426.appspot.com",
+  messagingSenderId: "801586637990",
+  appId: "1:801586637990:web:70d9c557d241e2d9ea1867"
 };
 
 firebase.initializeApp(config);
