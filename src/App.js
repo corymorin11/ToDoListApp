@@ -25,9 +25,8 @@ export function App(props) {
       .doc(user.uid)
       .collection("tasks")
       .add({ text: newTask, checked: false })
-      .then(() => {
-        setNewTask("");
-      });
+      .then(() => {});
+    setNewTask("");
   };
 
   const deleteTask = task_id => {
@@ -61,25 +60,25 @@ export function App(props) {
 
   useEffect(() => {
     let unsubscribe;
+
     if (user) {
       unsubscribe = db
         .collection("users")
         .doc(user.uid)
         .collection("tasks")
         .onSnapshot(snapshot => {
-          const updatedTasks = [];
-          snapshot.forEach(doc => {
-            const data = doc.data();
-            updatedTasks.push({
-              text: data.text,
-              checked: data.checked,
-              id: doc.id
-            });
+          console.log(snapshot.docs);
+          const user_tasks = snapshot.docs.map(qs => {
+            const user_task = {
+              id: qs.id,
+              text: qs.data().text,
+              complete: qs.data().complete
+            };
+            return user_task;
           });
-          setTasks(updatedTasks);
+          setTasks(user_tasks);
         });
     }
-
     return unsubscribe;
   }, [user]);
 
@@ -124,6 +123,11 @@ export function App(props) {
           <div style={{ display: "flex", marginTop: "30px" }}>
             <TextField
               fullWidth={true}
+              onKeyPress={e => {
+                if (e.key === "Enter") {
+                  addTask();
+                }
+              }}
               placeholder="Add a new task here"
               style={{ marginRight: "30px" }}
               value={newTask}
@@ -141,8 +145,8 @@ export function App(props) {
               <ListItem key={value.id}>
                 <ListItemIcon>
                   <Checkbox
-                    onChange={(event, checked) => {
-                      changeCheck(checked, value.id);
+                    onChange={e => {
+                      changeCheck(e.target.checked, value.id);
                     }}
                     checked={value.checked} //checked={checked.indexOf(value) !== -1}
                   />
